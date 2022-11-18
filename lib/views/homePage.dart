@@ -37,22 +37,25 @@ class _HomepageState extends State<Homepage> {
       appBar: AppBar(
         title: Text("Advice Generator"),
         centerTitle: true,
+        backgroundColor: Color.fromARGB(232, 0, 0, 0),
       ),
       body: Center(
-        child: Container(
-          padding: EdgeInsets.all(10), 
-          margin: EdgeInsets.symmetric(vertical: 10, horizontal: 20),
-          height: 200,
-          width: 20,
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-                Text("$adviceSlip.slip.id"),
-                // Text(adviceSlip?.slip.advice),
-            ]
-            ),
-        )
-      ),
+        child: Visibility(
+          visible: isLoaded,
+          replacement: CircularProgressIndicator(),
+          child: Container(
+            padding: EdgeInsets.all(10),
+            margin: EdgeInsets.symmetric(vertical: 10, horizontal: 20),
+            height: 200,
+            width: 300,
+            color: Colors.green,
+            child:
+                Column(crossAxisAlignment: CrossAxisAlignment.center, children: [
+              Text("${adviceSlip?.slip?.id}"),
+              Text("${adviceSlip?.slip?.advice}"),
+          ]),
+        ),
+      )),
     );
   }
 }
