@@ -40,22 +40,31 @@ class _HomepageState extends State<Homepage> {
         backgroundColor: Color.fromARGB(232, 0, 0, 0),
       ),
       body: Center(
-        child: Visibility(
-          visible: isLoaded,
-          replacement: CircularProgressIndicator(),
-          child: Container(
-            padding: EdgeInsets.all(10),
-            margin: EdgeInsets.symmetric(vertical: 10, horizontal: 20),
-            height: 200,
-            width: 300,
-            color: Colors.green,
-            child:
-                Column(crossAxisAlignment: CrossAxisAlignment.center, children: [
-              Text("${adviceSlip?.slip?.id}"),
-              Text("${adviceSlip?.slip?.advice}"),
-          ]),
+        child: FutureBuilder(
+          future: ResourceService().getAdvice(),
+          builder: (context, snapshot) {
+            if (!snapshot.hasData) {
+              return Center(
+                child: CircularProgressIndicator(),
+              );
+            } else {
+              return Container(
+                padding: EdgeInsets.all(10),
+                margin: EdgeInsets.symmetric(vertical: 10, horizontal: 20),
+                height: 200,
+                width: 300,
+                color: Colors.green,
+                child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      Text("${adviceSlip?.slip?.id}"),
+                      Text("${adviceSlip?.slip?.advice}"),
+                    ]),
+              );
+            }
+          },
         ),
-      )),
+      ),
     );
   }
 }

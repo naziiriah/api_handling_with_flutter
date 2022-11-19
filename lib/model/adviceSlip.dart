@@ -2,11 +2,6 @@
 //
 //     final adviceSlip = adviceSlipFromJson(jsonString);
 
-import 'dart:convert';
-
-AdviceSlip adviceSlipFromJson(String str) => AdviceSlip.fromJson(json.decode(str));
-
-String adviceSlipToJson(AdviceSlip data) => json.encode(data.toJson());
 
 class AdviceSlip {
     AdviceSlip({
@@ -19,9 +14,6 @@ class AdviceSlip {
         slip: Slip.fromJson(json["slip"]),
     );
 
-    Map<String, dynamic> toJson() => {
-        "slip": slip?.toJson(),
-    };
 }
 
 class Slip {
@@ -38,8 +30,4 @@ class Slip {
         advice: json["advice"],
     );
 
-    Map<String, dynamic> toJson() => {
-        "id": id,
-        "advice": advice,
-    };
 }

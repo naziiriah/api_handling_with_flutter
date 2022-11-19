@@ -1,16 +1,19 @@
+// ignore_for_file: avoid_print
+
+import 'package:dio/dio.dart';
 import 'package:practice_6/model/adviceSlip.dart';
-import "package:http/http.dart" as http;
 
 class ResourceService {
-  Future<AdviceSlip?> getAdvice() async {
-    var client = http.Client();
+  final String _url = "https://api.adviceslip.com/advice";
 
-    var uri = Uri.parse("https://api.adviceslip.com/advice");
-    var response = await client.get(uri);
+  Future getAdvice() async {
+    try {
+      Response response = await Dio().get(_url);
+      AdviceSlip adviceSlip = AdviceSlip.fromJson(response.data);
 
-    if (response.statusCode == 200) {
-      var json = response.body;
-      adviceSlipFromJson(json);
+      return adviceSlip;
+    } on DioError catch (e) {
+      print(e);
     }
   }
 }
